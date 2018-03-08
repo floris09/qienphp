@@ -1,31 +1,44 @@
 <?php
-session_start();
 
-$number1 = $_SESSION['result'];
-$number = (int)$_GET['number'];
-$operator = $_GET['operator'];
+$boerderij = new Kinderboerderij();
+$kip = new Kip();
+$kip->naam = "Kip Jan";
+$varken = new Varken();
+$varken->naam = "Varken Henk";
 
-switch($operator){
-    case "+":
-        $result = $number1 + $number;
-        echo $result;
-        break;
-    case "-":
-        $result = $number1 - $number;
-        echo $result;
-        break;
-    case "*":
-        $result = $number1 * $number;
-        echo $result;
-        break;
-    case "/":
-        $result = $number1 / $number;
-        echo $result;
-        break;
-    case "%":
-        $result = $number1 % $number;
-        echo $result;
+$boerderij->voerRonde($kip);
+$boerderij->voerRonde($varken);
+
+
+class Kinderboerderij {
+	public function voerRonde(Dier $dier){
+		echo "We doen een voerronde voor: $dier->naam <br>";
+	}
 }
 
-$_SESSION['result'] = $result;
-?>
+abstract class Dier {
+	public $naam;
+	public $dieet;
+	public $carnivoor;
+
+	public function eten(){
+		echo 'eten';
+	}
+}
+
+class Varken extends Dier {
+	public $spekDikte;
+
+	public function knorren(){
+		echo "knor";
+	}
+}
+
+class Kip extends Dier {
+	public $kleurVeren;
+
+	public function kakelen(){
+		echo "Kakaa";
+	}
+
+}
